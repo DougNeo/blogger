@@ -7,5 +7,6 @@ defmodule BloggerWeb.Router do
 
   scope "/api", BloggerWeb do
     pipe_through :api
+    get "/", WelcomeController, :index
   end
 end
