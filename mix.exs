@@ -10,7 +10,14 @@ defmodule Blogger.MixProject do
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -41,7 +48,13 @@ defmodule Blogger.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:pbkdf2_elixir, "~> 2.0"}
+      {:pbkdf2_elixir, "~> 2.0"},
+      {:ex_machina, "~> 2.7"},
+      {:excoveralls, "~> 0.14.4", only: :test},
+      {:bypass, "~> 2.1", only: :test},
+      {:mox, "~> 1.0", only: :test},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:guardian, "~> 2.0"}
     ]
   end
 
