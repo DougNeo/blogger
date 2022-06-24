@@ -10,5 +10,7 @@ defmodule Blogger.Repo.Migrations.CreateUsersTable do
 
       timestamps()
     end
+
+    create index("users", :email, unique: true)
   end
 end
