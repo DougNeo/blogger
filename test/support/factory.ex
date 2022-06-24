@@ -20,6 +20,13 @@ defmodule Blogger.Factory do
     }
   end
 
+  def post_params_factory do
+    %{
+      title: "Post Title",
+      content: "Post Body"
+    }
+  end
+
   def post_factory do
     %Blogger.Post{
       title: "Post Title",
