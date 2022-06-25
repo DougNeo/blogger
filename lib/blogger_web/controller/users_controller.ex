@@ -3,6 +3,9 @@ defmodule BloggerWeb.UsersController do
 
   alias Blogger.User
   alias Blogger.Users
+  alias BloggerWeb.FallbackController
+
+  action_fallback FallbackController
 
   def create(conn, params) do
     with {:ok, %User{} = user} <- Users.Create.call(params) do
