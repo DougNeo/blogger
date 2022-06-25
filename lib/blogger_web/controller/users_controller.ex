@@ -12,14 +12,6 @@ defmodule BloggerWeb.UsersController do
     end
   end
 
-  # def index(params) do
-  #   with {:ok, %User{} = user} <- Users.Get.by_id(params) do
-  #     conn
-  #     |> put_status(:ok)
-  #     |> render("user.json", user: user)
-  #   end
-  # end
-
   def show(conn, params) do
     with {:ok, %User{} = user} <- Users.Get.by_id(params) do
       conn
@@ -29,7 +21,7 @@ defmodule BloggerWeb.UsersController do
   end
 
   def destroy(conn, %{"id" => id}) do
-    with {:ok, %User{} = user} <- Users.Delete.call(id) do
+    with {:ok, %User{}} <- Users.Delete.call(id) do
       conn
       |> put_status(:no_content)
       |> text("")
@@ -43,4 +35,12 @@ defmodule BloggerWeb.UsersController do
       |> render("user.json", user: user)
     end
   end
+
+  # def index(params) do
+  #   with {:ok, %User{} = user} <- Users.Get.by_id(params) do
+  #     conn
+  #     |> put_status(:ok)
+  #     |> render("user.json", user: user)
+  #   end
+  # end
 end
