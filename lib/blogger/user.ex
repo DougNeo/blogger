@@ -8,7 +8,7 @@ defmodule Blogger.User do
 
   @required_params [:display_name, :email, :password]
 
-  @derive {Jason.Encoder, only: [:display_name, :email, :image]}
+  @derive {Jason.Encoder, only: [:id, :display_name, :email, :image]}
 
   schema "users" do
     field :display_name, :string
