@@ -26,6 +26,7 @@ defmodule Blogger.DataCase do
       import Blogger.DataCase
     end
   end
+
   alias Ecto.Adapters.SQL.Sandbox
 
   setup tags do

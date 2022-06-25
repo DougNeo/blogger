@@ -12,5 +12,4 @@ defmodule BloggerWeb.PostsController do
   def edit(params) do
     # ...
   end
-
 end

@@ -21,6 +21,5 @@ defmodule BloggerWeb.Router do
       get "/", PostsController, :index
       put "/:id", PostsController, :edit
     end
-
   end
 end
