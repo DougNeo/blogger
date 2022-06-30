@@ -5,21 +5,30 @@ defmodule BloggerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug BloggerWeb.Auth.Pipeline
+  end
+
+  # Escopo sem autenticação
   scope "/", BloggerWeb do
     pipe_through :api
+
     get "/", WelcomeController, :index
-
-    scope "user" do
-      post "/", UsersController, :create
-      get "/", UsersController, :index
-      get "/:id", UsersController, :show
-      delete "/me", UsersController, :destroy
-    end
-
-    scope "post" do
-      post "/", PostsController, :create
-      get "/", PostsController, :index
-      put "/:id", PostsController, :edit
-    end
+    post "/user", UsersController, :create
+    post "/user/login", UsersController, :login
   end
+
+  # Escopo com autenticação
+  scope "/", BloggerWeb do
+    pipe_through [:api, :auth]
+    
+    get "user/", UsersController, :index
+    get "user/:id", UsersController, :show
+    delete "user/me", UsersController, :destroy
+    post "post/", PostsController, :create
+    get "post/", PostsController, :index
+    put "post/:id", PostsController, :edit
+  end
+
+
 end
