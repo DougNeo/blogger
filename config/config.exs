@@ -17,6 +17,10 @@ config :blogger, BloggerWeb.Endpoint,
   pubsub_server: Blogger.PubSub,
   live_view: [signing_salt: "BpMWlvsO"]
 
+config :blogger, BloggerWeb.Auth.Guardian,
+  issuer: "blogger",
+  secret_key: "wIMU04awg76itXoHBJgB+lnE30gECG9VAb/z+VDCgU6mdQhLPEQTJL0a/MxQN8Zj"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

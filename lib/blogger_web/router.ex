@@ -21,14 +21,12 @@ defmodule BloggerWeb.Router do
   # Escopo com autenticação
   scope "/", BloggerWeb do
     pipe_through [:api, :auth]
-    
-    get "user/", UsersController, :index
-    get "user/:id", UsersController, :show
-    delete "user/me", UsersController, :destroy
-    post "post/", PostsController, :create
-    get "post/", PostsController, :index
-    put "post/:id", PostsController, :edit
+
+    get "/user", UsersController, :index
+    get "/user/:id", UsersController, :show
+    delete "/user/me", UsersController, :destroy
+    post "/post", PostsController, :create
+    get "/post", PostsController, :index
+    put "/post/:id", PostsController, :edit
   end
-
-
 end
