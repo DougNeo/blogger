@@ -17,19 +17,20 @@ defmodule BloggerWeb.UsersController do
     end
   end
 
-  def show(conn, params) do
-    with {:ok, %User{} = user} <- Get.by_id(params) do
+  def show(conn, %{"id" => id}) do
+    with {:ok, %User{} = user} <- Get.by_id(id) do
       conn
       |> put_status(:ok)
       |> render("user.json", user: user)
     end
   end
 
-  def destroy(conn, %{"id" => id}) do
-    with {:ok, %User{}} <- Delete.call(id) do
-      conn
-      |> put_status(:no_content)
-      |> text("")
+  def destroy(conn, _params) do
+    with {:ok, %User{id: id}, _claims} <- Guardian.resource_from_token(conn.private.guardian_default_token),
+          {:ok, %User{}} <- Delete.call(id) do
+        conn
+        |> put_status(:no_content)
+        |> text("")
     end
   end
 
@@ -42,7 +43,7 @@ defmodule BloggerWeb.UsersController do
   end
 
   def login(conn, params) do
-    with {:ok, token, _claims} <- Guardian.authenticate(params) do
+    with {:ok, token} <- Guardian.authenticate(params) do
       conn
       |> put_status(:ok)
       |> render("login.json", token: token)

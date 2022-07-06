@@ -27,7 +27,7 @@ defmodule Blogger.User do
     |> validate_length(:display_name, min: 8)
     |> validate_length(:password, min: 6)
     |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email)
+    |> unique_constraint(:email, message: "Usuario já existe")
     |> put_password_hash()
   end
 
