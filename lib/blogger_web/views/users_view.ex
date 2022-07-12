@@ -3,9 +3,8 @@ defmodule BloggerWeb.UsersView do
 
   alias Blogger.User
 
-  def render("create.json", %{user: %User{} = user, token: token}) do
+  def render("create.json", %{token: token}) do
     %{
-      user: user,
       token: token
     }
   end

@@ -4,14 +4,14 @@ defmodule Blogger.User do
 
   alias Ecto.Changeset
 
-  @fields [:display_name, :email, :password, :image]
+  @fields [:displayName, :email, :password, :image]
 
-  @required_params [:display_name, :email, :password]
+  @required_params [:displayName, :email, :password]
 
-  @derive {Jason.Encoder, only: [:id, :display_name, :email, :image]}
+  @derive {Jason.Encoder, only: [:id, :displayName, :email, :image]}
 
   schema "users" do
-    field :display_name, :string
+    field :displayName, :string
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
@@ -23,11 +23,11 @@ defmodule Blogger.User do
   def changeset(struct \\ %__MODULE__{}, params) do
     struct
     |> cast(params, @fields)
-    |> validate_required(@required_params)
-    |> validate_length(:display_name, min: 8)
-    |> validate_length(:password, min: 6)
-    |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email, message: "Usuario já existe")
+    |> validate_required(@required_params, message: "is required")
+    |> validate_length(:displayName, min: 8, message: "length must be at least 8 characters long")
+    |> validate_length(:password, min: 6, message: "length must be at least 6 characters long")
+    |> validate_format(:email, ~r/[a-z0-9.]+@[a-z0-9]/, message: "must be a valid email")
+    |> unique_constraint(:email, message: "Usuário já existe")
     |> put_password_hash()
   end
 

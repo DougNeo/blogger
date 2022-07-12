@@ -7,4 +7,11 @@ defmodule Blogger.Users.Get do
       user -> {:ok, user}
     end
   end
+
+  def by_email(email) do
+    case Repo.get_by(User, email: email) do
+      nil -> {:error, Error.build(:bad_request, "Campos inválidos")}
+      user -> {:ok, user}
+    end
+  end
 end

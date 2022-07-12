@@ -3,7 +3,7 @@ defmodule Blogger.Factory do
 
   def user_params_factory do
     %{
-      display_name: "Fulano de Tal",
+      displayName: "Fulano de Tal",
       email: "fulano@email.com",
       password: "123456",
       image: "http://example.com/image.jpg"
@@ -12,7 +12,7 @@ defmodule Blogger.Factory do
 
   def user_factory do
     %Blogger.User{
-      display_name: "Fulano de Tal",
+      displayName: "Fulano de Tal",
       email: "fulano@email.com",
       password: "123456",
       image: "http://example.com/image.jpg",

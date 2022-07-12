@@ -3,7 +3,7 @@ defmodule Blogger.Repo.Migrations.CreateUsersTable do
 
   def change do
     create table("users") do
-      add :display_name, :string
+      add :displayName, :string
       add :email, :string
       add :password_hash, :string
       add :image, :string

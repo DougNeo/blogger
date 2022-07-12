@@ -9,7 +9,5 @@ defmodule BloggerWeb.Auth.ErrorHandler do
       :no_resource_found -> Conn.send_resp(conn, 401, Jason.encode!(%{message: "token invalido"}))
       _ -> Conn.send_resp(conn, 401, Jason.encode!(%{message: to_string(error)}))
     end
-
-
   end
 end

@@ -19,8 +19,17 @@ defmodule BloggerWeb.ErrorView do
   end
 
   def render("error.json", %{message: %Changeset{} = changeset}) do
-    IO.inspect(changeset)
-    %{message: translate_errors(changeset)}
+    msg =
+      translate_errors(changeset)
+      |> Enum.map_join(", ", fn {key, val} ->
+        case {key, val} do
+          {:email, ["Usuário já existe"]} -> "Usuário já existe"
+          {:email, _} -> ~s{"#{key}" #{val}}
+          {_, _} -> ~s{"#{key}" #{val}}
+        end
+      end)
+
+    %{message: msg}
   end
 
   def render("error.json", %{message: message}) do
@@ -28,6 +37,10 @@ defmodule BloggerWeb.ErrorView do
   end
 
   def translate_errors(changeset) do
-    traverse_errors(changeset, fn {msg, opts} -> Regex.replace(~r"%{(\w+)}", msg, fn _, key -> opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string() end) end)
+    traverse_errors(changeset, fn {msg, opts} ->
+      Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
+        opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
+      end)
+    end)
   end
 end

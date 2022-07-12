@@ -12,17 +12,29 @@ defmodule BloggerWeb.Auth.Guardian do
     |> Get.by_id()
   end
 
-  def authenticate(%{"id" => user_id, "password" => password}) do
-    with {:ok, %User{password_hash: hash} = user} <- Get.by_id(user_id),
+  def authenticate(%{"email" => "", "password" => _password}) do
+    {:error, Error.build(:bad_request, ~s/"email" is not allowed to be empty/)}
+  end
+
+  def authenticate(%{"email" => _email, "password" => ""}) do
+    {:error, Error.build(:bad_request, ~s/"password" is not allowed to be empty/)}
+  end
+
+  def authenticate(%{"email" => email, "password" => password}) do
+    with {:ok, %User{password_hash: hash} = user} <- Get.by_email(email),
          true <- Pbkdf2.verify_pass(password, hash),
          {:ok, token, _claims} <- encode_and_sign(user) do
       {:ok, token}
     else
-      false -> {:error, Error.build(:unauthorized, "Por favor verifique suas credenciais")}
+      false -> {:error, Error.build(:bad_request, "Campos Inválidos")}
       error -> error
     end
   end
 
-  def authenticate,
-    do: {:error, Error.build(:bad_request, "Invalido ou parametros não fornecido")}
+  def authenticate(%{"password" => _password}) do
+    {:error, Error.build(:bad_request, ~s/"email" is required/)}
+  end
+  def authenticate(%{"email" => _email}) do
+    {:error, Error.build(:bad_request, ~s/"password" is required/)}
+  end
 end

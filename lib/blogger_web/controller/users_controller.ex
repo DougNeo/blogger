@@ -13,7 +13,7 @@ defmodule BloggerWeb.UsersController do
          {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
       conn
       |> put_status(:created)
-      |> render("create.json", user: user, token: token)
+      |> render("create.json", token: token)
     end
   end
 
@@ -26,11 +26,12 @@ defmodule BloggerWeb.UsersController do
   end
 
   def destroy(conn, _params) do
-    with {:ok, %User{id: id}, _claims} <- Guardian.resource_from_token(conn.private.guardian_default_token),
-          {:ok, %User{}} <- Delete.call(id) do
-        conn
-        |> put_status(:no_content)
-        |> text("")
+    with {:ok, %User{id: id}, _claims} <-
+           Guardian.resource_from_token(conn.private.guardian_default_token),
+         {:ok, %User{}} <- Delete.call(id) do
+      conn
+      |> put_status(:no_content)
+      |> text("")
     end
   end
 
