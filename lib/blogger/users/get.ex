@@ -2,14 +2,15 @@ defmodule Blogger.Users.Get do
   alias Blogger.{Error, Repo, User}
 
   def all do
-    with {:ok, %User{} = user} <- Repo.all(User) do
-     user
+    case Repo.all(User) do
+      nil -> {:error, Error.build(:not_found, "Users not found")}
+      users -> {:ok, users}
     end
   end
 
   def by_id(id) do
     case Repo.get(User, id) do
-      nil -> {:error, Error.build(:not_found, "User not found")}
+      nil -> {:error, Error.build(:not_found, "Usuário não existe")}
       user -> {:ok, user}
     end
   end

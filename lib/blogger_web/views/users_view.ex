@@ -16,12 +16,17 @@ defmodule BloggerWeb.UsersView do
   end
 
   def render("user.json", %{user: %User{} = user}) do
-    %{
-      user: user
-    }
+    user
   end
 
-  def render("users.json", %{users: [%User{}] = users}) do
-    %{users: render_many(users, BloggerWeb.UsersView, "user.json")}
+  def render("users.json", %{users: users}) do
+    Enum.map(users, fn user ->
+      %{
+        id: user.id,
+        displayName: user.displayName,
+        email: user.email,
+        image: user.image
+      }
+    end)
   end
 end
