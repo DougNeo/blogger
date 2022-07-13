@@ -51,11 +51,11 @@ defmodule BloggerWeb.UsersController do
     end
   end
 
-  # def index(params) do
-  #   with {:ok, %User{} = user} <- Users.Get.by_id(params) do
-  #     conn
-  #     |> put_status(:ok)
-  #     |> render("user.json", user: user)
-  #   end
-  # end
+  def index(conn, _params) do
+    with {:ok, [%User{}] = users} <- Get.all do
+      conn
+      |> put_status(:ok)
+      |> render("users.json", users: users)
+    end
+  end
 end

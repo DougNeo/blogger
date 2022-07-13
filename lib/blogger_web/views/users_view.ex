@@ -20,4 +20,8 @@ defmodule BloggerWeb.UsersView do
       user: user
     }
   end
+
+  def render("users.json", %{users: [%User{}] = users}) do
+    %{users: render_many(users, BloggerWeb.UsersView, "user.json")}
+  end
 end

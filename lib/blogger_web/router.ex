@@ -15,7 +15,7 @@ defmodule BloggerWeb.Router do
 
     get "/", WelcomeController, :index
     post "/user", UsersController, :create
-    post "/user/login", UsersController, :login
+    post "/login", UsersController, :login
   end
 
   # Escopo com autenticação
