@@ -3,7 +3,7 @@ defmodule BloggerWeb.UsersController do
 
   alias Blogger.User
   alias BloggerWeb.Auth.Guardian
-  alias Blogger.Users.{Create, Delete, Get, Update}
+  alias Blogger.Users.{Create, Delete, Get}
   alias BloggerWeb.FallbackController
 
   action_fallback FallbackController
@@ -32,14 +32,6 @@ defmodule BloggerWeb.UsersController do
       conn
       |> put_status(:no_content)
       |> text("")
-    end
-  end
-
-  def update(conn, params) do
-    with {:ok, %User{} = user} <- Update.call(params) do
-      conn
-      |> put_status(:ok)
-      |> render("user.json", user: user)
     end
   end
 
