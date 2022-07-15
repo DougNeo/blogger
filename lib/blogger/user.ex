@@ -3,6 +3,7 @@ defmodule Blogger.User do
   import Ecto.Changeset
 
   alias Ecto.Changeset
+  alias Blogger.Post
 
   @fields [:displayName, :email, :password, :image]
 
@@ -16,6 +17,7 @@ defmodule Blogger.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :image, :string
+    has_many :posts, Post
 
     timestamps()
   end

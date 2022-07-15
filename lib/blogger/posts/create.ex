@@ -2,9 +2,10 @@ defmodule Blogger.Posts.Create do
 
   alias Blogger.{Error, Repo, Post}
 
-  def call(params) do
-    params
-    |> Post.changeset()
+  def call(params, user) do
+    user
+    |> Ecto.build_assoc(:posts, params)
+    |> Post.changeset(params)
     |> Repo.insert()
     |> handle_insert()
   end
