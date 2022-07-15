@@ -27,6 +27,7 @@ defmodule BloggerWeb.Router do
     delete "/user/me", UsersController, :destroy
     post "/post", PostsController, :create
     get "/post", PostsController, :index
+    get "/post/:id", PostsController, :show
     put "/post/:id", PostsController, :edit
   end
 end
