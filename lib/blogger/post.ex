@@ -8,7 +8,7 @@ defmodule Blogger.Post do
 
   @required_params [:title, :content]
 
-  @derive {Jason.Encoder, only: [:title, :content, :user_id ]}
+  @derive {Jason.Encoder, only: [:title, :content, :user_id]}
 
   schema "posts" do
     field :title, :string

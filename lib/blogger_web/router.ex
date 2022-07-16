@@ -22,12 +22,19 @@ defmodule BloggerWeb.Router do
   scope "/", BloggerWeb do
     pipe_through [:api, :auth]
 
-    get "/user", UsersController, :index
-    get "/user/:id", UsersController, :show
-    delete "/user/me", UsersController, :destroy
-    post "/post", PostsController, :create
-    get "/post", PostsController, :index
-    get "/post/:id", PostsController, :show
-    put "/post/:id", PostsController, :edit
+    scope "/post" do
+      get "/search", PostsController, :search
+      get "/", PostsController, :index
+      get "/:id", PostsController, :show
+      post "/", PostsController, :create
+      put "/:id", PostsController, :edit
+      delete "/:id", PostsController, :destroy
+    end
+
+    scope "/user" do
+      get "/", UsersController, :index
+      get "/:id", UsersController, :show
+      delete "/me", UsersController, :destroy
+    end
   end
 end

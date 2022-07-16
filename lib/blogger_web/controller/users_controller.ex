@@ -44,7 +44,7 @@ defmodule BloggerWeb.UsersController do
   end
 
   def index(conn, _params) do
-    with {:ok, users} <- Get.all do
+    with {:ok, users} <- Get.all() do
       conn
       |> put_status(:ok)
       |> render("users.json", users: users)

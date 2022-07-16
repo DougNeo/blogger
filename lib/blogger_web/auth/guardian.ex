@@ -34,6 +34,7 @@ defmodule BloggerWeb.Auth.Guardian do
   def authenticate(%{"password" => _password}) do
     {:error, Error.build(:bad_request, ~s/"email" is required/)}
   end
+
   def authenticate(%{"email" => _email}) do
     {:error, Error.build(:bad_request, ~s/"password" is required/)}
   end

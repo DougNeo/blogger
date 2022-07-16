@@ -1,5 +1,4 @@
 defmodule Blogger.Posts.Create do
-
   alias Blogger.{Error, Repo, Post}
 
   def call(params, user) do
@@ -15,6 +14,4 @@ defmodule Blogger.Posts.Create do
   defp handle_insert({:error, result}) do
     {:error, Error.build(:bad_request, result)}
   end
-
-
 end

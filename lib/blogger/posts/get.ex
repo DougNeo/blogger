@@ -1,6 +1,6 @@
 defmodule Blogger.Posts.Get do
-
   alias Blogger.{Error, Repo, Post}
+  import Ecto.Query
 
   def all do
     case Repo.all(Post) do
@@ -13,6 +13,27 @@ defmodule Blogger.Posts.Get do
     case Repo.get(Post, id) do
       nil -> {:error, Error.build(:not_found, "Post não existe")}
       post -> {:ok, post}
+    end
+  end
+
+  def by_content_or_title(term) do
+    case term do
+      nil ->
+        {:ok, Repo.all(Post)}
+
+      "" ->
+        {:ok, Repo.all(Post)}
+
+
+      _ ->
+        q = "%#{term}%"
+
+        query = from(u in Post, where: ilike(u.title, ^q) or ilike(u.content, ^q))
+
+        case Repo.all(query) |> Repo.preload(:user) do
+          [] -> {:error, Error.build(:not_found, [])}
+          posts -> {:ok, posts}
+        end
     end
   end
 end
