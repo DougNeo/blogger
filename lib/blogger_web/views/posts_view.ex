@@ -7,7 +7,15 @@ defmodule BloggerWeb.PostsView do
     %{
       title: post.title,
       content: post.content,
-      userId: post.user_id,
+      userId: post.user_id
+    }
+  end
+
+  def render("update.json", %{post_loaded: post_loaded}) do
+    %{
+      title: post_loaded.title,
+      content: post_loaded.content,
+      userId: post_loaded.user_id
     }
   end
 

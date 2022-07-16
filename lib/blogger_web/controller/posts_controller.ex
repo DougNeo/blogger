@@ -3,9 +3,10 @@ defmodule BloggerWeb.PostsController do
 
   alias BloggerWeb.Auth.Guardian
   alias Blogger.Posts.{Create, Get, Put}
-  alias Blogger.{Repo, Post}
+  alias Blogger.{Error, Repo, Post}
   alias BloggerWeb.FallbackController
   alias Blogger.User
+  alias Ecto.Changeset
 
   action_fallback FallbackController
 
@@ -38,11 +39,19 @@ defmodule BloggerWeb.PostsController do
 
   def edit(conn, params) do
     with {:ok, %User{} = user, _claims} <- Guardian.resource_from_token(conn.private.guardian_default_token),
-    {:ok, post_update} <- Put.call(params, user),
-      post_update_loaded <- Repo.preload(post_update, :user) do
+    {:ok, %Post{} = post} <- Get.by_id(params["id"]),
+    true <- user.id == post.user_id,
+    %Changeset{valid?: true} <- Blogger.Post.changeset(params) |> Ecto.Changeset.validate_required([:title, :content]),
+    {:ok, post_update} <- Put.call(params),
+      post_loaded <- Repo.preload(post_update, :user) do
         conn
         |> put_status(:ok)
-        |> render("post.json", post_update_loaded: post_update_loaded)
-    end
+        |> render("update.json", post_loaded: post_loaded)
+      else
+        false -> {:error, Error.build(:unauthorized, "Usuário não autorizado")}
+        %Changeset{valid?: false, errors: [content: {_,[_]}]} -> {:error, Error.build(:bad_request, ~S("content" is required))}
+        %Changeset{valid?: false, errors: [title: {_,[_]}]} -> {:error, Error.build(:bad_request, ~S("title" is required))}
+        %Changeset{valid?: false, errors: [_,_]} -> {:error, Error.build(:bad_request, ~S("content" is required, "title" is required))}
+      end
   end
 end
