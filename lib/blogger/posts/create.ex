@@ -1,5 +1,5 @@
 defmodule Blogger.Posts.Create do
-  alias Blogger.{Error, Repo, Post}
+  alias Blogger.{Error, Post, Repo}
 
   def call(params, user) do
     user

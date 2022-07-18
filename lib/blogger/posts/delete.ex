@@ -1,5 +1,5 @@
 defmodule Blogger.Posts.Delete do
-  alias Blogger.{Error, Repo, Post}
+  alias Blogger.{Error, Post, Repo}
 
   def call(id) do
     case Repo.get(Post, id) do

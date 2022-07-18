@@ -2,8 +2,8 @@ defmodule Blogger.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Ecto.Changeset
   alias Blogger.Post
+  alias Ecto.Changeset
 
   @fields [:displayName, :email, :password, :image]
 

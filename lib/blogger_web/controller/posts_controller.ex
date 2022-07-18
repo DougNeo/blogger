@@ -2,9 +2,9 @@ defmodule BloggerWeb.PostsController do
   use BloggerWeb, :controller
 
   alias BloggerWeb.Auth.Guardian
-  alias Blogger.Posts.{Create, Delete, Get, Put}
-  alias Blogger.{Error, Repo, Post}
   alias BloggerWeb.FallbackController
+  alias Blogger.Posts.{Create, Delete, Get, Put}
+  alias Blogger.{Error, Post, Repo}
   alias Blogger.User
   alias Ecto.Changeset
 
@@ -81,7 +81,7 @@ defmodule BloggerWeb.PostsController do
   end
 
   def search(conn, %{"q" => query} = params) do
-    with  {:ok, posts} <- Get.by_content_or_title(query),
+    with {:ok, posts} <- Get.by_content_or_title(query),
          posts_loaded <- Repo.preload(posts, :user) do
       conn
       |> put_status(:ok)

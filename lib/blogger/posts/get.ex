@@ -1,5 +1,5 @@
 defmodule Blogger.Posts.Get do
-  alias Blogger.{Error, Repo, Post}
+  alias Blogger.{Error, Post, Repo}
   import Ecto.Query
 
   def all do
@@ -23,7 +23,6 @@ defmodule Blogger.Posts.Get do
 
       "" ->
         {:ok, Repo.all(Post)}
-
 
       _ ->
         q = "%#{term}%"
