@@ -9,7 +9,8 @@ defmodule BloggerWeb.ErrorViewTest do
   end
 
   test "renders 500.json" do
-    assert render(BloggerWeb.ErrorView, "500.json", []) ==
-             %{errors: %{detail: "Internal Server Error"}}
+    assert render(BloggerWeb.ErrorView, "500.json", []) == %{
+             errors: %{detail: "Internal Server Error"}
+           }
   end
 end
