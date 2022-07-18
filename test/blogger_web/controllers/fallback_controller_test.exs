@@ -1,0 +1,2 @@
+defmodule BloggerWeb.FallbackControllerTest do
+end

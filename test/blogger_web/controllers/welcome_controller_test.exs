@@ -1,0 +1,2 @@
+defmodule BloggerWeb.WelcomeControllerTest do
+end
