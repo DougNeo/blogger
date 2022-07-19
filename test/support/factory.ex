@@ -4,7 +4,7 @@ defmodule Blogger.Factory do
   def user_params_factory do
     %{
       displayName: "Fulano de Tal",
-      email: "fulano@email.com",
+      email: sequence(:email, &"fulano-#{&1}@email.com"),
       password: "123456",
       image: "http://example.com/image.jpg"
     }
@@ -13,10 +13,10 @@ defmodule Blogger.Factory do
   def user_factory do
     %Blogger.User{
       displayName: "Fulano de Tal",
-      email: "fulano@email.com",
+      email: sequence(:email, &"fulano-#{&1}@email.com"),
       password: "123456",
       image: "http://example.com/image.jpg",
-      id: 1
+      id: sequence(:id, &"#{&1}")
     }
   end
 

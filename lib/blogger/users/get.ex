@@ -3,7 +3,7 @@ defmodule Blogger.Users.Get do
 
   def all do
     case Repo.all(User) do
-      nil -> {:error, Error.build(:not_found, "Users not found")}
+      [] -> {:error, Error.build(:not_found, "Usuários não existem")}
       users -> {:ok, users}
     end
   end

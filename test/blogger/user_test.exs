@@ -27,7 +27,6 @@ defmodule Blogger.UserTest do
     response = User.changeset(params)
 
     assert %Changeset{
-             
              errors: [
                email: {"must be a valid email", [validation: :format]},
                password:

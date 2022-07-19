@@ -30,7 +30,7 @@ defmodule Blogger.Posts.Get do
         query = from(u in Post, where: ilike(u.title, ^q) or ilike(u.content, ^q))
 
         case Repo.all(query) |> Repo.preload(:user) do
-          [] -> {:error, Error.build(:not_found, [])}
+          [] -> {:ok, []}
           posts -> {:ok, posts}
         end
     end
