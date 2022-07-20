@@ -3,8 +3,8 @@ defmodule Blogger.Users.Index do
 
   def call do
     case Repo.all(User) do
-      nil -> {:error, Error.build(:not_found, "User not found")}
-      user -> {:ok, user}
+      [] -> {:ok, []}
+      users -> {:ok, users}
     end
   end
 end

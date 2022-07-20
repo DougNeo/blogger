@@ -11,7 +11,7 @@ defmodule Blogger.Users.CreateTest do
       assert {:ok,
               %Blogger.User{
                 displayName: "Fulano de Tal",
-                email: "fulano@email.com",
+                email: _email,
                 id: _1,
                 image: "http://example.com/image.jpg"
               }} = response

@@ -13,7 +13,7 @@ defmodule Blogger.UserTest do
       assert %Changeset{
                changes: %{
                  displayName: "Fulano de Tal",
-                 email: "fulano@email.com",
+                 email: "fulano-1@email.com",
                  image: "http://example.com/image.jpg"
                },
                valid?: true
