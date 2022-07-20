@@ -6,14 +6,14 @@ defmodule Blogger.UserTest do
 
   describe "changeset/1" do
     test "when all params are valid, returns a valid changeset" do
-      params = build(:user_params)
+      params = build(:user_params, email: "fulano@email.com")
 
       response = User.changeset(params)
 
       assert %Changeset{
                changes: %{
                  displayName: "Fulano de Tal",
-                 email: "fulano-1@email.com",
+                 email: "fulano@email.com",
                  image: "http://example.com/image.jpg"
                },
                valid?: true

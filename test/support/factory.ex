@@ -16,7 +16,7 @@ defmodule Blogger.Factory do
       email: sequence(:email, &"fulano-#{&1}@email.com", start_at: 1),
       password: "123456",
       image: "http://example.com/image.jpg",
-      id: sequence(:id, &"#{&1}")
+      id: sequence(:id, &"#{&1}", start_at: 1)
     }
   end
 
