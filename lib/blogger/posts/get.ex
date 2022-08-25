@@ -4,7 +4,7 @@ defmodule Blogger.Posts.Get do
 
   def all do
     case Repo.all(Post) do
-      nil -> {:error, Error.build(:not_found, "Posts não existem")}
+      [] -> {:error, Error.build(:not_found, "Posts não existem")}
       posts -> {:ok, posts}
     end
   end
