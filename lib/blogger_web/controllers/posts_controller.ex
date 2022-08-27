@@ -80,7 +80,7 @@ defmodule BloggerWeb.PostsController do
     end
   end
 
-  def search(conn, %{"q" => query} = params) do
+  def search(conn, %{"q" => query}) do
     with {:ok, posts} <- Get.by_content_or_title(query),
          posts_loaded <- Repo.preload(posts, :user) do
       conn
