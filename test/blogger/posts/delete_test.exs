@@ -10,17 +10,16 @@ defmodule Blogger.Posts.DeleteTest do
       response = Blogger.Posts.Delete.call(post.id)
 
       assert {:ok,
-               %Blogger.Post{
-                 content: "Post Body",
-                 id: _id,
-                 title: "Post Title",
-                 user: _user,
-                 user_id: _user_id
-               }} = response
+              %Blogger.Post{
+                content: "Post Body",
+                id: _id,
+                title: "Post Title",
+                user: _user,
+                user_id: _user_id
+              }} = response
     end
 
     test "when there are some error, returns an invalid changeset" do
-
       response = Blogger.Posts.Delete.call(999)
 
       assert {:error, %Blogger.Error{message: "Post not found", status: :not_found}} = response

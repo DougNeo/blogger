@@ -1,5 +1,5 @@
 defmodule Blogger.Posts.Put do
-  alias Blogger.{Error, Post, Repo, User}
+  alias Blogger.{Error, Post, Repo}
 
   def call(%{"id" => id} = params) do
     case Repo.get(Post, id) do

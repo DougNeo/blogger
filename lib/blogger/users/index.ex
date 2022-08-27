@@ -1,5 +1,5 @@
 defmodule Blogger.Users.Index do
-  alias Blogger.{Error, Repo, User}
+  alias Blogger.{Repo, User}
 
   def call do
     case Repo.all(User) do

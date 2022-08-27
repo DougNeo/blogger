@@ -26,7 +26,7 @@ defmodule Blogger.Users.GetTest do
 
       response = Blogger.Users.Get.by_id(user.id)
 
-      assert {:ok, user} = response
+      assert {:ok, _user} = response
     end
 
     test "when id is not valid, error user not found" do
@@ -43,7 +43,7 @@ defmodule Blogger.Users.GetTest do
 
       response = Blogger.Users.Get.by_email(user.email)
 
-      assert {:ok, user} = response
+      assert {:ok, _user} = response
     end
 
     test "when email is not valid, error user not found" do
