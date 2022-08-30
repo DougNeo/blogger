@@ -3,7 +3,7 @@ defmodule Blogger.Users.IndexTest do
   import Blogger.Factory
 
   alias Blogger.Users.Index
-  alias Blogger.{Error, User}
+  alias Blogger.User
 
   describe "call/0" do
     test "when there are users, returns them" do
