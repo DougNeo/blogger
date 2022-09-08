@@ -53,4 +53,29 @@ defmodule BloggerWeb.UsersControllerTest do
       assert response == "banana"
     end
   end
+
+  describe "show/2" do
+    test "when there is a user with the given id, returns the user", %{conn: conn} do
+      user = insert(:user)
+      conn = Guardian.Plug.sign_in(conn, user)
+
+      response =
+        conn
+      |> get(Routes.users_path(conn, :show, user.id))
+      |> json_response(:ok)
+
+      assert response == %{"displayName" => "Fulano de Tal", "email" => "fulano-1@email.com", "id" => 1, "image" => "http://example.com/image.jpg"}
+    end
+
+    test "when the user is not given token, return the error", %{conn: conn} do
+      user = insert(:user)
+
+      response =
+        conn
+      |> get(Routes.users_path(conn, :show, user.id))
+      |> response(:unauthorized)
+
+      assert response == "{\"message\":\"Token não encontrado\"}"
+    end
+  end
 end
