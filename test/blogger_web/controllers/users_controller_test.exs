@@ -64,7 +64,11 @@ defmodule BloggerWeb.UsersControllerTest do
       |> get(Routes.users_path(conn, :show, user.id))
       |> json_response(:ok)
 
-      assert response == %{"displayName" => "Fulano de Tal", "email" => "fulano-1@email.com", "id" => 1, "image" => "http://example.com/image.jpg"}
+      IO.inspect(response.displayName)
+      assert response.displayName == user.displayName
+      assert response.email == user.email
+      assert response.id == user.id
+      assert response.image == user.image
     end
 
     test "when the user is not given token, return the error", %{conn: conn} do
